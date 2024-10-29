@@ -7,12 +7,12 @@ from shot import *
 class Player(CircleShape):
     containers = None
     rateTimer = 0
+    playerLives = 3
 
 
     def __init__(self, x, y):
         super().__init__(x, y, PLAYER_RADIUS)
         self.rotation = 0
-
 
     # in the player class
     def triangle(self):
@@ -56,3 +56,10 @@ class Player(CircleShape):
         shot = Shot(self.position.x, self.position.y)
         shot.velocity = pygame.Vector2(0, 1).rotate(self.rotation) * PLAYER_SHOOT_SPEED
         self.rateTimer = PLAYER_SHOOT_COOLDOWN
+
+    def takeLife(self):
+        Player.playerLives -= 1
+        print(f"Lives Remaining: {Player.playerLives}")
+        if Player.playerLives == 0:
+            print("Game over!")
+            sys.exit()
